@@ -14,7 +14,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("MS Usuarios API")
                         .version("1.0")
-                        .description("API para gerenciamento de usuarios para la tienda Brick Motors"));
+                        .description("API para gestion de usuarios para la tienda Brick Motors"));
     }
     
 }

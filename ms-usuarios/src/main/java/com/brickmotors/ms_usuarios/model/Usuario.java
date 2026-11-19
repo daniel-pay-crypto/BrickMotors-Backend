@@ -1,10 +1,16 @@
 package com.brickmotors.ms_usuarios.model;
 
+import java.time.LocalDateTime;
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -29,21 +35,31 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(max = 50, message = "El nombre no puede tener más de 50 caracteres")
-    @Column(name = "nombre", nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @NotBlank(message = "El apellido no puede estar vacío")
-    @Size(max = 50, message = "El apellido no puede tener más de 50 caracteres")
-    @Column(name = "apellido", nullable = false, length = 50)
-    private String apellido;
+    @Column(nullable = false, unique = true, length = 255)
+    private String correo;
 
-    @Min(value = 18, message = "La edad mínima es de 18 años")
-    @Max(value = 100, message = "La edad máxima es de 100 años")
-    @Column(name = "edad", nullable = false)
-    private Integer edad;
+    /** Hash BCrypt, nunca texto plano. */
+    @Column(nullable = false, length = 100)
+    private String contrasena;
 
-    //Columnas para las relaciones con otras entidades/tablas
-    
+    @Column(nullable = false)
+    private Boolean activo;
+
+    @Column(name = "fecha_registro", nullable = false)
+    private LocalDateTime fechaRegistro;
+
+    /** Se guarda como texto: 'ADMIN' o 'CLIENTE'. */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Rol rol;
+
+    @PrePersist
+    void alCrear() {
+        if (fechaRegistro == null) fechaRegistro = LocalDateTime.now();
+        if (activo == null) activo = true;
+        if (rol == null) rol = Rol.CLIENTE;
+    }
 }
