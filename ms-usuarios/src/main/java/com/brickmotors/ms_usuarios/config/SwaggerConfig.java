@@ -12,9 +12,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("MS Usuarios API")
+                        .title("Brick Motors API")
                         .version("1.0")
-                        .description("API para gestion de usuarios para la tienda Brick Motors"));
+                        .description("Backend de la tienda Brick Motors: usuarios, catálogo de sets LEGO, pedidos y contacto."));
     }
-    
 }
