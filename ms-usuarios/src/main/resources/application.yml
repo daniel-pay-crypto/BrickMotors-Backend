@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  application:
+    name: ms-usuarios
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/brickmotors}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: none           # las tablas las crea Flyway
+    open-in-view: false
+    show-sql: ${SHOW_SQL:false}
+  flyway:
+    enabled: true
+
+brick:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,https://*.vercel.app}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
