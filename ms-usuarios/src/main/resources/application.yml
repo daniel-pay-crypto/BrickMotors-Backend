@@ -8,6 +8,8 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/brickmotors}
     username: ${DB_USER:postgres}
     password: ${DB_PASS:postgres}
+    hikari:
+      maximum-pool-size: 5
   jpa:
     hibernate:
       ddl-auto: none           # las tablas las crea Flyway
